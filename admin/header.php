@@ -41,7 +41,7 @@ if (!isset($_SESSION['user_data'])) {
             <hr class="sidebar-divider">
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href=""> <span>Blogs</span></a>
+                <a class="nav-link" href="index.php"> <span>Blogs</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">

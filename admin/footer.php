@@ -21,9 +21,9 @@
    <script src="vendor/js/sb-admin-2.min.js"></script>
    <!-- Page level plugins -->
    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-   <script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+   <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
    <script>
-       CKEDITOR.replace('blog_body');
+       CKEDITOR.replace('blog');
    </script>
    </body>
 
