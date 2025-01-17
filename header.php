@@ -1,5 +1,8 @@
 <?php
 $page = basename($_SERVER['PHP_SELF'], '.php');
+include "Config.php";
+$select = "SELECT * FROM categories";
+$query = mysqli_query($config, $select);
 ?>
 <!doctype html>
 <html lang="en">
@@ -8,7 +11,8 @@ $page = basename($_SERVER['PHP_SELF'], '.php');
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -35,8 +39,11 @@ $page = basename($_SERVER['PHP_SELF'], '.php');
                         Categories
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Politics</a>
-                        <a class="dropdown-item" href="#">Sports</a>
+                        <?php while ($cats = mysqli_fetch_assoc($query)) { ?>
+                            <!-- <a class="dropdown-item" href="#">Politics</a> -->
+                            <a class="dropdown-item" href="category.php?id=<?= $cats['cat_id'] ?>"><?= $cats['cat_name'] ?></a>
+                            <!-- <a class="dropdown-item" href="#">Sports</a> -->
+                        <?php } ?>
                 </li>
                 <li class="nav-item <?= ($page == "login") ? 'active' : ''; ?>">
                     <a class="nav-link" href="login.php">Login</a>

@@ -1,5 +1,6 @@
 <?php
 ob_start();
+define('blog', true);
 include "../Config.php";
 session_start();
 if (!isset($_SESSION['user_data'])) {
@@ -46,15 +47,22 @@ if (!isset($_SESSION['user_data'])) {
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="categories.php"> <span>Categories</span> </a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href=""> <span>Users</span> </a>
-            </li>
+            <?php
+            if (isset($_SESSION['user_data'])) {
+                $admin = $_SESSION['user_data']['2'];
+            }
+            if ($admin == 1) {
+            ?>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="categories.php"> <span>Categories</span> </a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="users.php"> <span>Users</span> </a>
+                </li>
+            <?php } ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
             <!-- Sidebar Toggler (Sidebar) -->

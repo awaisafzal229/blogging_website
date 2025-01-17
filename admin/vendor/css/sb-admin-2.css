@@ -1,3 +1,11 @@
+form,
+input,
+a {
+  margin: 0 !important;
+}
+#adminpage tr td:nth-child(2) {
+  text-align: start !important;
+}
 table tbody tr td {
   font-weight: bold !important;
 }

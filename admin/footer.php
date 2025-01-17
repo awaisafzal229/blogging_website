@@ -1,3 +1,8 @@
+<?php
+if (!defined('blog')) {
+    header("location:index.php");
+}
+?>
    <!-- Footer -->
    <footer class="sticky-footer bg-white">
        <div class="container my-auto">

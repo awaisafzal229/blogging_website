@@ -1,18 +1,10 @@
 <?php include "header.php";
 include "Config.php";
-// pagination   
-
-if (!isset($_GET['page'])) {
-    $page = 1;
-} else {
-    $page = $_GET['page'];
+$id = $_GET['id'];
+if (empty($id)) {
+    header("location: index.php");
 }
-$limit = 3;
-$offset = ($page - 1) * $limit;
-
-
-// ------------ 
-$sql = "SELECT * FROM blog LEFT JOIN categories ON blog.category=categories.cat_id LEFT JOIN user ON blog.author_id=user.user_id ORDER BY blog.publish_date DESC limit $offset, $limit";
+$sql = "SELECT * FROM blog LEFT JOIN categories ON blog.category=categories.cat_id LEFT JOIN user ON blog.author_id=user.user_id WHERE cat_id='$id' ORDER BY blog.publish_date DESC";
 $run = mysqli_query($config, $sql);
 $row = mysqli_num_rows($run);
 ?>
@@ -49,7 +41,7 @@ $row = mysqli_num_rows($run);
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="category.php?id=<?= $result['cat_id'] ?>"> <span><i class="fa fa-tag" aria-hidden="true"> <?= $result['cat_name'] ?></i></span>
+                                        <a href=""> <span><i class="fa fa-tag" aria-hidden="true"> <?= $result['cat_name'] ?></i></span>
 
                                         </a>
                                     </li>
@@ -59,30 +51,8 @@ $row = mysqli_num_rows($run);
                     </div>
             <?php  }
             } ?>
-            <!-- Pagination begin  -->
-
-            <?php
-            $pagination = "SELECT * FROM blog";
-            $run_q = mysqli_query($config, $pagination);
-            $total_posts = mysqli_num_rows($run_q);
-            $pages = ceil($total_posts / $limit);
-            if ($total_posts > $limit) {
-            ?>
-                <ul class="pagination pt-2 pb-5">
-                    <?php for ($i = 1; $i <= $pages; $i++) {
-                    ?>
-                        <li class="page-item <?= ($i == $page) ? $active = "active" : ""; ?>">
-                            <a class="page-link" href="index.php?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                    <?php } ?>
-                </ul>
-            <?php } ?>
-
-            <!-- ------------------------  -->
         </div>
         <?php include "sidebar.php" ?>
     </div>
 </div>
-<?php include "footer.php";
-
-?>
+<?php include "footer.php"; ?>

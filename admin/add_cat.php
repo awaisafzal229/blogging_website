@@ -1,4 +1,7 @@
-<?php include "header.php" ?>
+<?php include "header.php";
+if ($admin != 1) {
+    header("location:index.php");
+} ?>
 <div class="container">
     <h5 class="mb-2 text-gray-800">Categories
     </h5>

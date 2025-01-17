@@ -1,9 +1,12 @@
 <?php
+ob_start(); // Start output buffering
 include "Config.php";
 include "header.php";
 session_start();
+
 if (isset($_SESSION['user_data'])) {
     header("location:http://localhost/blog/admin/index.php");
+    exit; // Stop further script execution
 }
 ?>
 <div class="container">
@@ -23,7 +26,7 @@ if (isset($_SESSION['user_data'])) {
                 <?php
                 if (isset($_SESSION['error'])) {
                     $error = $_SESSION['error'];
-                    echo "<p class='bg-danger p-2 text-white' >" . $error . "</p>";
+                    echo "<p class='bg-danger p-2 text-white'>" . $error . "</p>";
                     unset($_SESSION['error']);
                 }
                 ?>
@@ -31,23 +34,28 @@ if (isset($_SESSION['user_data'])) {
         </div>
     </div>
 </div>
-<?php include "footer.php";
+<?php
 if (isset($_POST['login_btn'])) {
     $email = mysqli_real_escape_string($config, $_POST['email']);
     $pass = mysqli_real_escape_string($config, sha1($_POST['password']));
-    // echo $email . "<br>" . $pass;
+
     $sql = "SELECT * FROM user WHERE email = '{$email}' AND password = '{$pass}'";
     $query = mysqli_query($config, $sql);
     $data = mysqli_num_rows($query);
+
     if ($data) {
         $result = mysqli_fetch_assoc($query);
         $user_data = array($result['user_id'], $result['username'], $result['role']);
         $_SESSION['user_data'] = $user_data;
         header("location:admin/index.php");
+        exit; // Stop further script execution
     } else {
         $_SESSION['error'] = "Invalid email or password";
         header("location:login.php");
+        exit; // Stop further script execution
     }
 }
 
+include "footer.php";
+ob_end_flush(); // Flush output buffer
 ?>

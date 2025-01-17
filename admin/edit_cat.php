@@ -1,4 +1,7 @@
 <?php include "header.php";
+if ($admin != 1) {
+    header("location:index.php");
+}
 $id = $_GET['id'];
 $sql = "SELECT * FROM categories WHERE cat_id='$id'";
 $query = mysqli_query($config, $sql);

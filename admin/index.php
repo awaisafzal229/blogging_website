@@ -4,7 +4,7 @@ if (isset($_SESSION['user_data'])) {
 }
 ?>
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container-fluid" id="adminpage">
    <!-- Page Heading -->
    <h5 class="mb-2 text-gray-800">Blog Posts</h5>
    <!-- DataTales Example -->
@@ -41,7 +41,7 @@ if (isset($_SESSION['user_data'])) {
                </thead>
                <tbody>
                   <?php
-                  $sql = "SELECT * FROM blog LEFT JOIN categories ON blog.category = categories.cat_id LEFT JOIN user ON blog.author_id = user.user_id WHERE user_id = '$userID'";
+                  $sql = "SELECT * FROM blog LEFT JOIN categories ON blog.category = categories.cat_id LEFT JOIN user ON blog.author_id = user.user_id WHERE user_id = '$userID' ORDER BY blog.publish_date  DESC";
                   $query = mysqli_query($config, $sql);
                   $rows = mysqli_num_rows($query);
                   $count = 1;
@@ -54,9 +54,9 @@ if (isset($_SESSION['user_data'])) {
                            <td><?= $result['cat_name'] ?></td>
                            <td><?= $result['username'] ?></td>
                            <td><?= date('d-M-Y', strtotime($result['publish_date'])) ?></td>
-                           <td><a href="" class="btn btn-sm btn-success">Edit</a></td>
+                           <td><a href="edit_blog.php?id=<?= $result['blog_id'] ?>" class="btn btn-sm btn-success">Edit</a></td>
                            <td>
-                              <form method="POST" onsubmit="return confirm('Are you Sure you want to delete?')">
+                              <form class="mt-0" method="POST" onsubmit="return confirm('Are you Sure you want to delete?')">
                                  <input type="hidden" name="id" value="<?= $result['blog_id'] ?>">
                                  <input type="hidden" name="image" value="<?= $result['blog_image'] ?>">
                                  <input type="submit" name="deletePost" value="Delete" class="btn btn-sm btn-danger">
